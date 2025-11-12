@@ -16,8 +16,13 @@ export interface ApiItem {
   parameters?: Parameter[];
 }
 
+// A self-contained API tool that includes its own execution logic.
+export interface ApiTool extends ApiItem {
+  handler: (params?: Record<string, any>) => any;
+}
+
 export interface Category {
   id: string;
   name: string;
-  apis: ApiItem[];
+  apis: ApiTool[];
 }

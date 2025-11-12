@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { ApiItem, ApiMethod } from '../types';
+import { ApiTool, ApiMethod } from '../types';
 import { ChevronDownIcon } from './Icons';
-import { getRandomBibleVerse } from '../data/bibleVerses';
 
 const getMethodColor = (method: ApiMethod) => {
     switch (method) {
@@ -13,7 +12,7 @@ const getMethodColor = (method: ApiMethod) => {
 };
 
 interface ApiDropdownProps {
-    api: ApiItem;
+    api: ApiTool;
     onApiCall: () => void;
 }
 
@@ -37,18 +36,8 @@ const ApiDropdown: React.FC<ApiDropdownProps> = ({ api, onApiCall }) => {
         // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        let resultData: any;
-
-        if (api.id === 'random-bible-verse') {
-            const { book } = formData;
-            resultData = getRandomBibleVerse(book);
-        } else {
-            // Generic placeholder response for other potential APIs
-            resultData = {
-                message: `This is a simulated response for ${api.name}.`,
-                params: formData,
-            };
-        }
+        // Call the generic handler associated with the API tool
+        const resultData = api.handler(formData);
         
         const responseJson = {
             status: "success",

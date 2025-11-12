@@ -1,20 +1,14 @@
 import { Category } from './types';
+import { randomBibleVerseTool } from '../API/Other/randomBibleVerse';
 
-// This data simulates the dynamic detection of API files from a folder structure
-// as requested. For example, `API/Other/randomBible.js` would be detected and
-// transformed into the data structure below.
+// This data structure now imports "detected" API tools and organizes them
+// into categories for the UI to display.
 export const API_CATEGORIES: Category[] = [
     {
         id: 'other',
         name: 'Other',
         apis: [
-            {
-                id: 'random-bible-verse',
-                method: 'POST',
-                name: 'Get Random Bible Verse',
-                route: '/api/other/random-bible',
-                description: 'Fetches a random verse from the Bible, providing a source of inspiration or reflection.',
-            },
+            randomBibleVerseTool,
         ],
     },
 ];
