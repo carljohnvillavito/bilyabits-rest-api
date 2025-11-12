@@ -1,13 +1,11 @@
-import type { ApiTool } from '../../types';
-
-interface BibleVerse {
-    book: string;
-    chapter: number;
-    verse: number;
-    text: string;
+export interface BibleVerse {
+  book: string;
+  chapter: number;
+  verse: number;
+  text: string;
 }
 
-const BIBLE_VERSES: BibleVerse[] = [
+export const BIBLE_VERSES: BibleVerse[] = [
     { book: "John", chapter: 3, verse: 16, text: "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life." },
     { book: "Romans", chapter: 8, verse: 28, text: "And we know that for those who love God all things work together for good, for those who are called according to his purpose." },
     { book: "Jeremiah", chapter: 29, verse: 11, text: "For I know the plans I have for you, declares the LORD, plans for welfare and not for evil, to give you a future and a hope." },
@@ -41,16 +39,14 @@ const BIBLE_VERSES: BibleVerse[] = [
     { book: "Acts", chapter: 1, verse: 8, text: "But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth." }
 ];
 
-const handler = (): BibleVerse => {
-    const randomIndex = Math.floor(Math.random() * BIBLE_VERSES.length);
-    return BIBLE_VERSES[randomIndex];
-};
-
-export const randomBibleVerseTool: ApiTool = {
-    id: 'random-bible-verse',
-    method: 'POST',
-    name: 'Get Random Bible Verse',
-    route: '/api/other/random-bible',
-    description: 'Fetches a random verse from the Bible. This endpoint does not require any parameters.',
-    handler,
+export const getRandomBibleVerse = (book?: string): BibleVerse => {
+    let verses = BIBLE_VERSES;
+    if (book) {
+        const filtered = BIBLE_VERSES.filter(v => v.book.toLowerCase() === book.toLowerCase());
+        if (filtered.length > 0) {
+            verses = filtered;
+        }
+    }
+    const randomIndex = Math.floor(Math.random() * verses.length);
+    return verses[randomIndex];
 };

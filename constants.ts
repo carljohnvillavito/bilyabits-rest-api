@@ -1,14 +1,10 @@
 import { Category } from './types';
-import { randomBibleVerseTool } from '../API/Other/randomBibleVerse';
+import { otherCategory } from './API/Other';
 
-// This data structure now imports "detected" API tools and organizes them
-// into categories for the UI to display.
+// This structure simulates "detecting" category folders by importing
+// the complete category definitions from each category's index file.
 export const API_CATEGORIES: Category[] = [
-    {
-        id: 'other',
-        name: 'Other',
-        apis: [
-            randomBibleVerseTool,
-        ],
-    },
+    otherCategory,
+    // To add a new category, create a new folder in API/ with an 
+    // index.ts file, define the category, and then import it here.
 ];
